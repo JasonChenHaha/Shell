@@ -11,7 +11,9 @@ cat $1 | while read line; do
     else
         body=`(echo $line | tr -d '\n' | xxd -plain | sed 's/\(..\)/%\1/g')`
         body2=`(echo $body)`
+        echo $body2
         body2=${body2//' '/'%20'}
+        echo $body2
         url='http://123.207.245.244:8080/miniw/mail?cmd=send_mail_to_player&end_time=1647964800&uin='$uin'&title='$title'&body='$body2
         msg=$(curl -s $url)
         if [[ $msg == *'result":0'* ]]; then
